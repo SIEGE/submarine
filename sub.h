@@ -17,6 +17,7 @@ typedef struct Sub
     SGEntity* entity;
     SGVec2 vel;
     SGAudioSource* srcEngine;
+    SGAudioSource* srcGrinding;
 
     size_t head;
     size_t tail;
@@ -26,6 +27,9 @@ typedef struct Sub
     SGubyte mode;
 
     float angle;
+
+    /*SGPhysicsBody* body;
+    SGPhysicsShape* shape;*/
 } Sub;
 SGVec2 subvects[90];
 SGVec2 subtail[2][9];
@@ -34,6 +38,7 @@ float radii[4];
 void SG_EXPORT subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance);
 
 void SG_EXPORT lcSubDestroy(SGEntity* entity);
+void SG_EXPORT lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll);
 void SG_EXPORT evSubMouseButtonLeftPress(SGEntity* entity);
 void SG_EXPORT evSubMouseButtonRightPress(SGEntity* entity);
 void SG_EXPORT evSubMouseWheel(SGEntity* entity, SGint wheel);

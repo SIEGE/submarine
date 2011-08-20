@@ -8,6 +8,7 @@
 #include "ping.h"
 #include "bezier.h"
 #include "gencave.h"
+#include "torpedo.h"
 
 #include <string.h>
 #include <stdlib.h>
@@ -52,9 +53,13 @@ int main()
     space = sgPhysicsSpaceGetDefault();
     sbody = sgPhysicsSpaceGetStaticBody(space);
 
+    sgPhysicsSpaceSetGravity(space, 0.0, 0.0);
+    sgPhysicsSpaceSetDamping(space, 0.95);
+
     bufMusic = sgAudioBufferCreateFile("data/audio/WagnerRideOfTheValkyries.ogg");
     bufPing = sgAudioBufferCreateFile("data/audio/ping.ogg");
     bufEngine = sgAudioBufferCreateFile("data/audio/engine.ogg");
+    bufGrinding = sgAudioBufferCreateFile("data/audio/grinding.wav");
 
     srcMusic = sgAudioSourceCreate(0.0, 0.5, 0.25, SG_TRUE);
     sgAudioSourceQueueBuffer(srcMusic, bufMusic);

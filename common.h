@@ -9,6 +9,7 @@ SGPhysicsBody* sbody;
 SGAudioBuffer* bufMusic;
 SGAudioBuffer* bufPing;
 SGAudioBuffer* bufEngine;
+SGAudioBuffer* bufGrinding;
 
 SGAudioSource* srcMusic;
 

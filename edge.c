@@ -21,6 +21,7 @@ void destroyEdge(Edge* edge)
     if(!edge)
         return;
     sgListRemoveNode(edge->list, edge->node);
+    sgPhysicsShapeDestroy(edge->shape);
     free(edge);
 }
 Edge* createEdge(SGList* list, SGVec2 head, SGVec2 tail)
@@ -34,18 +35,24 @@ Edge* createEdge(SGList* list, SGVec2 head, SGVec2 tail)
     edge->list = list;
     edge->node = sgListAppend(list, edge);
 
+    edge->shape = sgPhysicsShapeCreateSegment(sbody, head.x, head.y, tail.x, tail.y, 1.0);
+
     return edge;
 }
 
 void drawEdgeDBG(Edge* edge)
 {
-    sgDrawColor4f(1.0, 1.0, 1.0, 0.0625);
+    sgDrawSetSmooth(SG_FALSE);
+
+    sgDrawColor4f(1.0, 1.0, 1.0, 0.125);
     sgDrawLine(edge->head.x, edge->head.y, edge->tail.x, edge->tail.y);
     sgDrawColor4f(1.0, 0.0, 0.0, 1.0);
     SGVec2 c = edgeCenter(edge);
     SGVec2 n = edgeNormal(edge);
     sgDrawLine(c.x, c.y, c.x + n.x * 16, c.y + n.y * 16);
     sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
+
+    sgDrawSetSmooth(SG_TRUE);
 }
 
 void lightEdges(SGVec2 pos, float radius, float dim)

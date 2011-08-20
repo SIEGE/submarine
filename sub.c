@@ -49,17 +49,6 @@ void subDrawMode(SGEntity* entity)
 
     sgDrawColor4f(0.0, 0.5, 0.75, 1.0);
     sgViewportSet4i(viewport, 0, 0, 640, 480);
-    const char* mode = "<unknown>";
-    switch(sub->mode)
-    {
-        case 0: mode = "Silent Running"; break;
-        case 1: mode = "Intermittent"; break;
-        case 2: mode = "Normal"; break;
-        case 3: mode = "Loud"; break;
-        default:
-            break;
-    }
-    //sgFontPrintYCenteredf(uifont, 2, 480-12, "Mode: %s", mode);
 
     SGColor umask = sgColor4f(0.0, 0.25, 0.5, 1.0); // unselected
     SGColor smask = sgColor4f(0.0, 0.5, 0.75, 1.0); // selected
@@ -154,6 +143,31 @@ void subDrawMode(SGEntity* entity)
 
     sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
 }
+void subDrawHealth(SGEntity* entity)
+{
+    //Sub* sub = entity->data;
+
+    SGVec2 pos;
+    sgEntityGetPos(entity, &pos.x, &pos.y);
+
+    sgViewportSet4i(viewport, 0, 0, 640, 480);
+
+    SGColor fill = sgColor4f(0.0, 0.25, 0.5, 0.75);
+    SGColor line = sgColor4f(0.0, 0.5, 0.75, 1.0);
+    SGColor color;
+
+    sgDrawSetSmooth(SG_FALSE);
+    color = fill;
+    sgDrawColor4f(color.r, color.g, color.b, color.a);
+    sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_TRUE);
+
+    color = line;
+    sgDrawColor4f(color.r, color.g, color.b, color.a);
+    sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_FALSE);
+    sgDrawSetSmooth(SG_TRUE);
+
+    sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
+}
 
 void SG_EXPORT subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance)
 {
@@ -182,6 +196,23 @@ void SG_EXPORT lcSubDestroy(SGEntity* entity)
 
     sgAudioSourceDestroy(sub->srcEngine);
     free(sub);
+}
+void SG_EXPORT lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll)
+{
+    Sub* sub = entity->data;
+
+    /*SGVec2 vel;
+    sgPhysicsBodyGetVel(sub->body, &vel.x, &vel.y);*/
+
+    SGVec2 impulse;
+    SGVec2 normal;
+    sgPhysicsCollisionGetImpulse(coll, &impulse.x, &impulse.y, SG_TRUE);
+    //printf("COLL %f,%f\n", xi, yi);
+
+    sgPhysicsCollisionGetNormal(coll, 0, &normal.x, &normal.y);
+
+    float dot = sgVec2Dot(sgVec2Normalize(impulse), sgVec2Normalize(sub->vel));
+    //sgAudioSourceSetVolume(sub->srcGrinding, fabs(dot));
 }
 void SG_EXPORT evSubMouseButtonLeftPress(SGEntity* entity)
 {
@@ -245,6 +276,7 @@ void SG_EXPORT evSubKeyboardKey(SGEntity* entity, SGenum key)
         default:
             return;
     }
+
     SGVec2 v;
     v.x = fabs(sub->vel.x);
     v.y = fabs(sub->vel.y);
@@ -370,8 +402,13 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
     }
 
     subDrawMode(entity);
+    subDrawHealth(entity);
 
     sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
+
+    /*sgPhysicsShapeDrawDBG(sub->shape);
+
+    sgPhysicsBodySetVel(sub->body, sub->vel.x, sub->vel.y);*/
 }
 
 Sub* subCreate(SGVec2 pos)
@@ -382,6 +419,7 @@ Sub* subCreate(SGVec2 pos)
     sub->entity = sgEntityCreate(0.0);
     sub->entity->data = sub;
     sub->entity->lcDestroy = lcSubDestroy;
+    sub->entity->lcCollision = lcSubCollision;
     sub->entity->evMouseButtonLeftPress = evSubMouseButtonLeftPress;
     sub->entity->evMouseButtonRightPress = evSubMouseButtonRightPress;
     sub->entity->evMouseWheel = evSubMouseWheel;
@@ -396,6 +434,10 @@ Sub* subCreate(SGVec2 pos)
     sgAudioSourceQueueBuffer(sub->srcEngine, bufEngine);
     sgAudioSourcePlay(sub->srcEngine);
 
+    sub->srcGrinding = sgAudioSourceCreate(1.0, 0.0, 0.75, SG_TRUE);
+    sgAudioSourceQueueBuffer(sub->srcGrinding, bufGrinding);
+    sgAudioSourcePlay(sub->srcGrinding);
+
     sub->head = 0;
     sub->tail = 0;
 
@@ -403,6 +445,25 @@ Sub* subCreate(SGVec2 pos)
     sub->mode = sizeof(radii) / sizeof(*radii) - 1;
 
     sub->angle = 0.0;
+
+    /*sub->body = sgPhysicsBodyCreate(space, SG_PHYSICS_BODY_NORMAL);
+    sgPhysicsBodySetPos(sub->body, pos.x, pos.y);
+
+    SGVec2 verts[4];
+    verts[0] = sgVec2f(-12.0, -3.0);
+    verts[1] = sgVec2f(-12.0, +4.0);
+    verts[2] = sgVec2f(+12.0, +4.0);
+    verts[3] = sgVec2f(+12.0, -3.0);
+
+    //sub->shape = sgPhysicsShapeCreateCircle(sub->body, 0.0, 0.0, 4.0, 4.0);
+    sub->shape = sgPhysicsShapeCreatePoly(sub->body, 0.0, 0.0, (float*)verts, 4);
+    sgPhysicsShapeSetRestitution(sub->shape, 0.25);
+    sgPhysicsShapeSetFriction(sub->shape, 0.75);
+
+    sgPhysicsBodySetMass(sub->body, 1.0);
+    sgPhysicsBodySetMoment(sub->body, sgPhysicsShapeGetMomentMass(sub->shape, 1.0));
+
+    sgEntitySetPhysicsBody(sub->entity, sub->body);*/
 
     return sub;
 }
