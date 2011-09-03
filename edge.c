@@ -13,7 +13,7 @@ SGVec2 edgeCenter(Edge* edge)
 SGVec2 edgeNormal(Edge* edge)
 {
     SGVec2 v = sgVec2Sub(edge->tail, edge->head);
-    return sgVec2Normalize(sgVec2f(v.y, -v.x));
+    return sgVec2Normalize(sgVec2f(-v.y, v.x));
 }
 
 void destroyEdge(Edge* edge)

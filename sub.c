@@ -6,6 +6,42 @@
 
 #include <math.h>
 
+/*void subCheckCollision(SGEntity* entity)
+{
+    SGVec2 pos;
+    sgEntityGetPos(entity, &pos.x, &pos.y);
+
+    SGVec2 inter;
+    SGbool hasinter;
+
+    size_t numavg = 0;
+    SGVec2 avg = sgVec2f(0.0, 0.0);
+
+    size_t numvects = sizeof(subvects) / sizeof(*subvects);
+
+    Edge* edge;
+
+    SGListNode* node;
+    size_t i;
+    for(node = edges->first; node; node = node->next)
+    {
+        edge = node->item;
+        for(i = 0; i < numvects; i++)
+        {
+            inter = sgIntersectSS(sgVec2Add(pos, subvects[i]), sgVec2Add(pos, subvects[(i + 1) % numvects]), edge->head, edge->tail, &hasinter);
+            if(hasinter)
+            {
+                avg.x = (avg.x * numavg + inter.x) / (numavg + 1);
+                avg.y = (avg.y * numavg + inter.y) / (numavg + 1);
+                numavg++;
+            }
+        }
+    }
+
+    if(numavg)
+        sgDrawCircle(avg.x, avg.y, 8, SG_TRUE);
+}*/
+
 void drawBand(float x, float y, float r1, float r2, SGColor a, SGColor b)
 {
     /*x += 32;
@@ -212,7 +248,7 @@ void SG_EXPORT lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollis
     sgPhysicsCollisionGetNormal(coll, 0, &normal.x, &normal.y);
 
     float dot = sgVec2Dot(sgVec2Normalize(impulse), sgVec2Normalize(sub->vel));
-    //sgAudioSourceSetVolume(sub->srcGrinding, fabs(dot));
+    sgAudioSourceSetVolume(sub->srcGrinding, fabs(dot));
 }
 void SG_EXPORT evSubMouseButtonLeftPress(SGEntity* entity)
 {
@@ -328,6 +364,8 @@ void SG_EXPORT evSubTick(SGEntity* entity)
         sub->vel = sgVec2f(0.0, 0.0);
 
     subCreateBubble(entity, sgVec2f(frand2(-12.0, 12.0), frand2(-4.0, 4.0)), 5); // 5% chance of a bubble creating if we're doing nothing!
+
+    //subCheckCollision(entity);
 }
 void SG_EXPORT evSubDraw(SGEntity* entity)
 {
@@ -346,16 +384,16 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
     float xf;
     SGVec2 v;
 
+    aangle = 10.0 * SG_PI / 180.0 * sub->vel.y / TOPVSPEED;
+    if(sub->angle > aangle)
+        sub->angle -= SG_MIN(0.25 * SG_PI / 180.0, sub->angle - aangle);
+    else if(sub->angle < aangle)
+        sub->angle += SG_MIN(0.25 * SG_PI / 180.0, aangle - sub->angle);
+    xf = -1.0 + sub->orient * 2.0;
+
     // this looks really ugly with smoothing on...
     sgDrawSetSmooth(SG_FALSE);
     sgDrawBegin(SG_GRAPHICS_PRIMITIVE_TRIANGLE_FAN);
-        aangle = 10.0 * SG_PI / 180.0 * sub->vel.y / TOPVSPEED;
-        if(sub->angle > aangle)
-            sub->angle -= SG_MIN(0.5 * SG_PI / 180.0, sub->angle - aangle);
-        else if(sub->angle < aangle)
-            sub->angle += SG_MIN(0.5 * SG_PI / 180.0, aangle - sub->angle);
-        xf = -1.0 + sub->orient * 2.0;
-
         sgDrawVertex2f(pos.x, pos.y);
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
@@ -368,13 +406,6 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
     sgDrawColor4f(0.0, 0.5, 0.75, 0.5);
 
     sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINE_STRIP);
-        aangle = 10.0 * SG_PI / 180.0 * sub->vel.y / TOPVSPEED;
-        if(sub->angle > aangle)
-            sub->angle -= SG_MIN(0.5 * SG_PI / 180.0, sub->angle - aangle);
-        else if(sub->angle < aangle)
-            sub->angle += SG_MIN(0.5 * SG_PI / 180.0, aangle - sub->angle);
-        xf = -1.0 + sub->orient * 2.0;
-
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
             v = sgVec2SetAngleRads(subvects[i], sgVec2GetAngleRads(subvects[i]) + sub->angle);
