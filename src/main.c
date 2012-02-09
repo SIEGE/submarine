@@ -43,7 +43,8 @@ int main()
     sgLoadModule("Freetype");
     sgLoadModule("IConv");
     sgLoadModule("Chipmunk");
-    sgInit(640, 480, 32, 0);
+    sgInit(0);
+    sgWindowOpen(640, 480, 32, 0);
 
     size_t i;
 
