@@ -41,7 +41,6 @@ int main()
     sgLoadModule("OpenAL");
     sgLoadModule("SndFile");
     sgLoadModule("Freetype");
-    sgLoadModule("IConv");
     sgLoadModule("Chipmunk");
     sgInit(0);
     sgWindowOpen(640, 480, 32, 0);
@@ -89,8 +88,8 @@ int main()
         createEdge(edges, verts[i], verts[(i + 1) % numverts]);*/
 
     SGVec2 pos;
-    SGVec2 mpos;
-    SGVec2 norm;
+    //SGVec2 mpos;
+    //SGVec2 norm;
 
     //sgWindowSetFPSLimit(60.0);
 
@@ -189,8 +188,8 @@ int main()
     {
         sgEntityGetPos(sub->entity, &pos.x, &pos.y);
 
-        mpos = getMousePos();
-        norm = sgVec2Normalize(sgVec2Sub(mpos, pos));
+        //mpos = getMousePos();
+        //norm = sgVec2Normalize(sgVec2Sub(mpos, pos));
 
         if(debugmode)
             for(node = edges->first; node; node = node->next)
