@@ -71,7 +71,7 @@ void drawRects(float x, float y, size_t mask, SGColor c)
     if(mask >= 1)
         sgDrawColor4f(c.r, c.g, c.b, c.a);
     sgDrawRectangleWH(x - 16 + 2, y + 16 - 4, 5, 1, SG_TRUE);
-    if(mask >= 0) // always
+    //if(mask >= 0) // always
         sgDrawColor4f(c.r, c.g, c.b, c.a);
     sgDrawRectangleWH(x - 16 + 2, y + 16 - 2, 5, 1, SG_TRUE);
 }

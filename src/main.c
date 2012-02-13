@@ -91,7 +91,7 @@ int main()
     SGVec2 mpos;
     SGVec2 norm;
 
-    //sgWindowSetFPSLimit(60.0);
+    sgWindowSetFPSLimit(60.0);
 
     SGListNode* node;
 
