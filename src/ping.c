@@ -53,7 +53,7 @@ Ping* SG_EXPORT pingCreate(SGVec2 pos, SGVec2 vel, float str, float radius, Edge
     if(!ping)
         return NULL;
 
-    ping->entity = sgEntityCreate(0.0);
+    ping->entity = sgEntityCreate();
     ping->entity->data = ping;
     ping->entity->lcDestroy = lcPingDestroy;
     ping->entity->evTick = evPingTick;

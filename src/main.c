@@ -29,7 +29,7 @@ void cbMarchDraw(Cave* cave, size_t i, size_t j, SGubyte map, float x1, float y1
 
 void SG_EXPORT evKeyboardKeyPress(SGEntity* entity, SGenum key)
 {
-    if(key == SG_KEYBOARD_KEY_F1)
+    if(key == SG_KEY_F1)
         debugmode = !debugmode;
 }
 
@@ -181,7 +181,7 @@ int main()
     caveMarchTiles(cave, 0.0, 0.0, xscale, yscale, cbMarchEdge, NULL);
 
     debugmode = SG_FALSE;
-    SGEntity* control = sgEntityCreate(0.0);
+    SGEntity* control = sgEntityCreate();
     control->evKeyboardKeyPress = evKeyboardKeyPress;
 
     while(sgLoop(NULL))
@@ -192,7 +192,7 @@ int main()
         //norm = sgVec2Normalize(sgVec2Sub(mpos, pos));
 
         if(debugmode)
-            for(node = edges->first; node; node = node->next)
+            for(node = edges->head; node; node = node->next)
                 drawEdgeDBG(node->item);
 
         /*sgDrawCircle(mpos.x, mpos.y, 64.0, SG_FALSE);
@@ -228,8 +228,8 @@ int main()
 
     sgViewportDestroy(viewport);
 
-    while(edges->first)
-        destroyEdge(edges->first->item);
+    while(edges->head)
+        destroyEdge(edges->head->item);
     sgListDestroy(edges);
 
     sgAudioSourceDestroy(srcMusic);

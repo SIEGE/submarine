@@ -447,7 +447,7 @@ Sub* subCreate(SGVec2 pos)
     Sub* sub = malloc(sizeof(Sub));
     if(!sub)
         return NULL;
-    sub->entity = sgEntityCreate(0.0);
+    sub->entity = sgEntityCreate();
     sub->entity->data = sub;
     sub->entity->lcDestroy = lcSubDestroy;
     sub->entity->lcCollision = lcSubCollision;

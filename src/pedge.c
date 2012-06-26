@@ -44,7 +44,7 @@ PingEdge* pingEdgeCreate(SGVec2 head, SGVec2 tail, float dim)
     if(!pe)
         return NULL;
 
-    pe->entity = sgEntityCreate(0.0);
+    pe->entity = sgEntityCreate();
     pe->entity->data = pe;
     pe->entity->lcDestroy = lcPingEdgeDestroy;
     pe->entity->evTick = evPingEdgeTick;

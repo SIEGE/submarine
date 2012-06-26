@@ -72,7 +72,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
     SGListNode* node;
     Edge* edge;
     PingEdge* nedge;
-    for(node = edges->first; node; node = node->next)
+    for(node = edges->head; node; node = node->next)
     {
         edge = node->item;
 

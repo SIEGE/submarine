@@ -332,7 +332,7 @@ SGVec2 nearestInter(SGVec2 pos, SGVec2 ray, struct Edge* ignore, struct Edge** i
 
     SGListNode* node;
     Edge* edge;
-    for(node = edges->first; node; node = node->next)
+    for(node = edges->head; node; node = node->next)
     {
         edge = node->item;
         if(edge == ignore)
@@ -373,7 +373,7 @@ void reflectRay(SGVec2 pos, SGVec2 ray, SGColor color, size_t num, struct Edge* 
 
     SGListNode* node;
     Edge* edge;
-    for(node = edges->first; node; node = node->next)
+    for(node = edges->head; node; node = node->next)
     {
         edge = node->item;
         if(edge == ignore)
