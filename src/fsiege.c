@@ -253,12 +253,12 @@ void drawEArcRads(float x, float y, float rx, float ry, float a1, float a2, SGbo
 
 	if(fill)
 	{
-		sgDrawBegin(SG_GRAPHICS_PRIMITIVE_TRIANGLE_FAN);
+		sgDrawBegin(SG_TRIANGLE_FAN);
 		sgDrawColor4fv(&a.r);
 		sgDrawVertex2f(x, y);
 	}
 	else
-		sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINE_STRIP);
+		sgDrawBegin(SG_LINE_STRIP);
 
     sgDrawColor4fv(&b.r);
 	for(i = 0; i <= numsides; i++)
@@ -285,10 +285,10 @@ void drawEArcRads2(float x, float y, float rx1, float ry1, float rx2, float ry2,
 
 	if(fill)
 	{
-		sgDrawBegin(SG_GRAPHICS_PRIMITIVE_TRIANGLE_STRIP);
+		sgDrawBegin(SG_TRIANGLE_STRIP);
 	}
 	else
-		sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINE_STRIP);
+		sgDrawBegin(SG_LINE_STRIP);
 
     sgDrawColor4fv(&bc.r);
 	for(i = 0; i <= numsides; i++)
@@ -308,7 +308,7 @@ void drawEArcRads2(float x, float y, float rx1, float ry1, float rx2, float ry2,
 
 	if(!fill)
 	{
-	    sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINE_STRIP);
+	    sgDrawBegin(SG_LINE_STRIP);
 	    sgDrawColor4fv(&ac.r);
         for(i = 0; i <= numsides; i++)
         {
@@ -394,7 +394,7 @@ void reflectRay(SGVec2 pos, SGVec2 ray, SGColor color, size_t num, struct Edge* 
     }
     if(refl)
     {
-        sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINES);
+        sgDrawBegin(SG_LINES);
         sgDrawColor4f(color.r, color.g, color.b, color.a * (1.0 - num / (float)NREFLECTS));
         sgDrawVertex2f(pos.x, pos.y);
         sgDrawColor4f(color.r, color.g, color.b, color.a * (1.0 - (num + 1.0) / (float)NREFLECTS));

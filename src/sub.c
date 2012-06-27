@@ -128,7 +128,7 @@ void subDrawMode(SGEntity* entity)
     sgDrawSetSmooth(SG_FALSE);
     drawRects(x, y, 1, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawBegin(SG_GRAPHICS_PRIMITIVE_TRIANGLE_STRIP);
+    sgDrawBegin(SG_TRIANGLE_STRIP);
         sgDrawVertex2f(x - 16 + 9, y + 16 - 3);
         sgDrawVertex2f(x - 16 + 9, y + 16 - 2);
         sgDrawVertex2f(x - 16 + 11, y + 16 - 3);
@@ -393,7 +393,7 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
 
     // this looks really ugly with smoothing on...
     sgDrawSetSmooth(SG_FALSE);
-    sgDrawBegin(SG_GRAPHICS_PRIMITIVE_TRIANGLE_FAN);
+    sgDrawBegin(SG_TRIANGLE_FAN);
         sgDrawVertex2f(pos.x, pos.y);
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
@@ -405,7 +405,7 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
 
     sgDrawColor4f(0.0, 0.5, 0.75, 0.5);
 
-    sgDrawBegin(SG_GRAPHICS_PRIMITIVE_LINE_STRIP);
+    sgDrawBegin(SG_LINE_STRIP);
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
             v = sgVec2SetAngleRads(subvects[i], sgVec2GetAngleRads(subvects[i]) + sub->angle);
