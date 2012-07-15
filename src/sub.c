@@ -359,7 +359,8 @@ void SG_EXPORT evSubTick(SGEntity* entity)
 
     float vdamping = 0.95;
 
-    sub->vel = sgVec2SetLength(sub->vel, sgVec2GetLength(sub->vel) * vdamping);
+    sub->vel.x *= vdamping;
+    sub->vel.y *= vdamping;
     if(sgVec2GetLength(sub->vel) < 0.005)
         sub->vel = sgVec2f(0.0, 0.0);
 
