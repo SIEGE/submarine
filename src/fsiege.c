@@ -187,22 +187,6 @@ size_t sgIntersectCS(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2
     return 0;
 }
 
-SGVec2 sgVec2Reflect(SGVec2 ray, SGVec2 normal)
-{
-    ray = sgVec2Normalize(ray);
-    normal = sgVec2Normalize(normal);
-
-    return sgVec2Sub(ray, sgVec2SetLength(normal, 2.0 * sgVec2Dot(ray, normal)));
-}
-float sgVec2ProjectScalar(SGVec2 v, SGVec2 target)
-{
-    return sgVec2Dot(v, target) / sgVec2GetLength(target);
-}
-SGVec2 sgVec2Project(SGVec2 v, SGVec2 target)
-{
-    return sgVec2SetLength(target, sgVec2ProjectScalar(v, target));
-}
-
 SGVec2 getMousePos(void)
 {
     SGint mx, my;
@@ -230,11 +214,6 @@ SGVec2 lerp2(float t, SGVec2 a, SGVec2 b)
 float frand2(float min, float max)
 {
     return min + rand() / (float)RAND_MAX * (max - min);
-}
-
-float distance(SGVec2 a, SGVec2 b)
-{
-    return sgVec2GetLength(sgVec2Sub(a, b));
 }
 
 void drawEArcRads(float x, float y, float rx, float ry, float a1, float a2, SGbool ccw, SGbool fill, SGColor a, SGColor b)

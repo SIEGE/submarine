@@ -32,10 +32,6 @@ void _sgIntersectCL(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2*
 size_t sgIntersectCL(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2* i2);
 size_t sgIntersectCS(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2* i2);
 
-SGVec2 sgVec2Reflect(SGVec2 ray, SGVec2 normal);
-float sgVec2ProjectScalar(SGVec2 v, SGVec2 target);
-SGVec2 sgVec2Project(SGVec2 v, SGVec2 target);
-
 // will eventually become a viewport function to transform coords into viewport coords
 SGVec2 getMousePos(void);
 
@@ -45,9 +41,6 @@ SGVec2 lerp2(float t, SGVec2 a, SGVec2 b);
 
 // will be used in rand.c
 float frand2(float min, float max);
-
-// will be sgVec2Distance(...) or similar
-float distance(SGVec2 a, SGVec2 b);
 
 // will use a callback or similar for drawing
 void drawEArcRads(float x, float y, float rx, float ry, float a1, float a2, SGbool ccw, SGbool fill, SGColor a, SGColor b);

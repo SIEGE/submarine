@@ -212,7 +212,7 @@ int main()
         //sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
         //caveDrawTilesDBG(cave, 0.0, 0.0, xscale, yscale);
 
-        sgDrawColor4f(1.0, 0.0, 0.0, 1.0);
+        //sgDrawColor4f(1.0, 0.0, 0.0, 1.0);
         //caveMarchTiles(cave, 0.0, 0.0, xscale, yscale, cbMarchDraw, NULL);
 
         sgDrawColor4f(1.0, 1.0, 1.0, 1.0);

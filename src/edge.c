@@ -81,7 +81,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
         {
             proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
             proj = sgVec2Add(proj, edge->head);
-            pdist = distance(proj, pos);
+            pdist = sgVec2Distance(proj, pos);
 
             nedge = pingEdgeCreate(i1, proj, dim);
             nedge->halpha = 0.0;
@@ -92,18 +92,18 @@ void lightEdges(SGVec2 pos, float radius, float dim)
         }
         else if(numi == 1)
         {
-            hdist = distance(pos, edge->head);
-            tdist = distance(pos, edge->tail);
+            hdist = sgVec2Distance(pos, edge->head);
+            tdist = sgVec2Distance(pos, edge->tail);
 
             proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
             proj = sgVec2Add(proj, edge->head);
             if((edge->head.x == edge->tail.x || SG_IN_RANGE(proj.x, edge->head.x, edge->tail.x))
             && (edge->head.y == edge->tail.y || SG_IN_RANGE(proj.y, edge->head.y, edge->tail.y)))
-                pdist = distance(proj, pos);
+                pdist = sgVec2Distance(proj, pos);
             else
             {
-                phdist = distance(pos, edge->head);
-                ptdist = distance(pos, edge->tail);
+                phdist = sgVec2Distance(pos, edge->head);
+                ptdist = sgVec2Distance(pos, edge->tail);
                 if(phdist < ptdist)
                 {
                     proj = edge->head;
@@ -116,7 +116,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
                 }
             }
 
-            idist = distance(pos, i1);
+            idist = sgVec2Distance(pos, i1);
 
             if(hdist <= radius)
             {
@@ -127,7 +127,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
                 nedge->halpha = 1.0 - pdist / radius;
                 nedge->talpha = 1.0 - idist / radius;
             }
-            else // distance(pos, edge->tail) <= radius
+            else // sgVec2Distance(pos, edge->tail) <= radius
             {
                 nedge = pingEdgeCreate(i1, proj, dim);
                 nedge->halpha = 1.0 - idist / radius;
@@ -139,19 +139,19 @@ void lightEdges(SGVec2 pos, float radius, float dim)
         }
         else if(numi == 0)
         {
-            hdist = distance(pos, edge->head);
-            tdist = distance(pos, edge->tail);
+            hdist = sgVec2Distance(pos, edge->head);
+            tdist = sgVec2Distance(pos, edge->tail);
             if(hdist <= radius) // tdist is as well then!
             {
                 proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
                 proj = sgVec2Add(proj, edge->head);
                 if((edge->head.x == edge->tail.x || SG_IN_RANGE(proj.x, edge->head.x, edge->tail.x))
                 && (edge->head.y == edge->tail.y || SG_IN_RANGE(proj.y, edge->head.y, edge->tail.y)))
-                    pdist = distance(proj, pos);
+                    pdist = sgVec2Distance(proj, pos);
                 else
                 {
-                    phdist = distance(pos, edge->head);
-                    ptdist = distance(pos, edge->tail);
+                    phdist = sgVec2Distance(pos, edge->head);
+                    ptdist = sgVec2Distance(pos, edge->tail);
                     if(phdist < ptdist)
                     {
                         proj = edge->head;
@@ -164,8 +164,8 @@ void lightEdges(SGVec2 pos, float radius, float dim)
                     }
                 }
 
-                phdist = distance(pos, edge->head);
-                ptdist = distance(pos, edge->tail);
+                phdist = sgVec2Distance(pos, edge->head);
+                ptdist = sgVec2Distance(pos, edge->tail);
 
                 nedge = pingEdgeCreate(edge->head, proj, dim);
                 nedge->halpha = 1.0 - phdist / radius;
