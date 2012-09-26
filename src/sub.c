@@ -103,11 +103,15 @@ void subDrawMode(SGEntity* entity)
     color = (sub->mode == 0) ? smask : umask;
     x = 0 * 32 + 16.0;
     drawBand(x, y, 0, 4, sgColor4f(color.r, color.g, color.b, color.a * 0.25/*34.0/255.0*/), sgColor4f(color.r, color.g, color.b, color.a * 0.25/*34.0/255.0*/));
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
     drawRects(x, y, 0, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     color = (sub->mode == 1) ? smask : umask;
     x = 1 * 32 + 16.0;
@@ -125,7 +129,9 @@ void subDrawMode(SGEntity* entity)
     c1 = lerp((11.616 - 9.304875) / (12.4065 - 9.304875), 70.0/255.0, 0.0);
     c2 = 0.0;
     drawBand(x, y, 11.616, 12.4065, sgColor4f(color.r, color.g, color.b, color.a * c1), sgColor4f(color.r, color.g, color.b, color.a * c2));
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
     drawRects(x, y, 1, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawBegin(SG_TRIANGLE_STRIP);
@@ -146,36 +152,50 @@ void subDrawMode(SGEntity* entity)
         sgDrawVertex2f(x - 16 + 29, y + 16 - 3);
         sgDrawVertex2f(x - 16 + 29, y + 16 - 2);
     sgDrawEnd();
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     color = (sub->mode == 2) ? smask : umask;
     x = 2 * 32 + 16.0;
     drawBand(x, y, 0, 4, sgColor4f(color.r, color.g, color.b, color.a), sgColor4f(color.r, color.g, color.b, color.a));
     drawBand(x, y, 4, 4.666, sgColor4f(color.r, color.g, color.b, color.a * 162.0/255.0), sgColor4f(color.r, color.g, color.b, color.a * 162.0/255.0));
     drawBands(x, y, bands2, sizeof(bands2) / sizeof(*bands2), sgColor4f(color.r, color.g, color.b, color.a), sgColor4f(color.r, color.g, color.b, color.a));
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
     drawRects(x, y, 2, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     color = (sub->mode == 3) ? smask : umask;
     x = 3 * 32 + 16.0;
     drawBand(x, y, 0, 4, sgColor4f(color.r, color.g, color.b, color.a), sgColor4f(color.r, color.g, color.b, color.a));
     drawBand(x, y, 4, 4.666, sgColor4f(color.r, color.g, color.b, color.a * 162.0/255.0), sgColor4f(color.r, color.g, color.b, color.a * 162.0/255.0));
     drawBands(x, y, bands3, sizeof(bands3) / sizeof(*bands3), sgColor4f(color.r, color.g, color.b, color.a), sgColor4f(color.r, color.g, color.b, color.a));
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
     drawRects(x, y, 3, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
     color = smask;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     x = sub->mode * 32 + 16.0;
     sgDrawRectangleWH(x - 16.0, y - 16.0, 32.0, 32.0, SG_FALSE);
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
 }
@@ -192,7 +212,9 @@ void subDrawHealth(SGEntity* entity)
     SGColor line = sgColor4f(0.0, 0.5, 0.75, 1.0);
     SGColor color;
 
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
     color = fill;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_TRUE);
@@ -200,7 +222,9 @@ void subDrawHealth(SGEntity* entity)
     color = line;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_FALSE);
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
 }
@@ -268,7 +292,7 @@ void SG_EXPORT evSubMouseButtonRightPress(SGEntity* entity)
     sgAudioSourcePlay(srcPing);
     sgAudioSourceDestroyLazy(srcPing);
 
-    pingCreate(pos, sgVec2SetLength(sgVec2Sub(mpos, pos), 5.0), 1.0, 64.0, NULL);
+    pingCreate(pos, sgVec2Resize(sgVec2Sub(mpos, pos), 5.0), 1.0, 64.0, NULL);
 }
 void SG_EXPORT evSubMouseWheel(SGEntity* entity, SGint wheel)
 {
@@ -327,7 +351,7 @@ void SG_EXPORT evSubKeyboardKey(SGEntity* entity, SGenum key)
     float xf = -1.0 + sub->orient * 2.0;
     SGVec2 rear = sgVec2f(-14.0 + frand2(-2.0, 2.0), 1.0 + frand2(-2.0, 2.0));
     rear.x *= xf;
-    rear = sgVec2SetAngleRads(rear, sgVec2GetAngleRads(rear) + sub->angle);
+    rear = sgVec2RotateRads(rear, sgVec2AngleRads(rear) + sub->angle);
 
     subCreateBubble(entity, rear, 25);
 }
@@ -346,8 +370,8 @@ void SG_EXPORT evSubTick(SGEntity* entity)
             break;
     }
 
-    sgAudioSourceSetVolume(sub->srcEngine, 0.25 * factor + sgVec2GetLength(sub->vel) * factor);
-    sgAudioSourceSetPitch(sub->srcEngine, 0.25 + sgVec2GetLength(sub->vel));
+    sgAudioSourceSetVolume(sub->srcEngine, 0.25 * factor + sgVec2Length(sub->vel) * factor);
+    sgAudioSourceSetPitch(sub->srcEngine, 0.25 + sgVec2Length(sub->vel));
 
     SGVec2 pos;
     sgEntityGetPos(entity, &pos.x, &pos.y);
@@ -361,7 +385,7 @@ void SG_EXPORT evSubTick(SGEntity* entity)
 
     sub->vel.x *= vdamping;
     sub->vel.y *= vdamping;
-    if(sgVec2GetLength(sub->vel) < 0.005)
+    if(sgVec2Length(sub->vel) < 0.005)
         sub->vel = sgVec2f(0.0, 0.0);
 
     subCreateBubble(entity, sgVec2f(frand2(-12.0, 12.0), frand2(-4.0, 4.0)), 5); // 5% chance of a bubble creating if we're doing nothing!
@@ -393,23 +417,27 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
     xf = -1.0 + sub->orient * 2.0;
 
     // this looks really ugly with smoothing on...
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetPointSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
+    sgDrawSetPolygonSmooth(SG_FALSE);
     sgDrawBegin(SG_TRIANGLE_FAN);
         sgDrawVertex2f(pos.x, pos.y);
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
-            v = sgVec2SetAngleRads(subvects[i], sgVec2GetAngleRads(subvects[i]) + sub->angle);
+            v = sgVec2RotateRads(subvects[i], sgVec2AngleRads(subvects[i]) + sub->angle);
             sgDrawVertex2f(pos.x + xf * v.x, pos.y + v.y);
         }
     sgDrawEnd();
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
 
     sgDrawColor4f(0.0, 0.5, 0.75, 0.5);
 
     sgDrawBegin(SG_LINE_STRIP);
         for(i = 0; i < sizeof(subvects) / sizeof(*subvects); i++)
         {
-            v = sgVec2SetAngleRads(subvects[i], sgVec2GetAngleRads(subvects[i]) + sub->angle);
+            v = sgVec2RotateRads(subvects[i], sgVec2AngleRads(subvects[i]) + sub->angle);
             sgDrawVertex2f(pos.x + xf * v.x, pos.y + v.y);
         }
     sgDrawEnd();
@@ -428,7 +456,7 @@ void SG_EXPORT evSubDraw(SGEntity* entity)
             drawEArcRads(sub->bubbles[i].pos.x, sub->bubbles[i].pos.y, 1.5, 1.5, 0, 2 * SG_PI, SG_FALSE, SG_TRUE, sgColor4f(0.0, 0.5, 0.75, 0.0), sgColor4f(0.0, 0.5, 0.75, sub->bubbles[i].alpha));
             sub->bubbles[i].pos = sgVec2Add(sub->bubbles[i].pos, sub->bubbles[i].vel);
             sub->bubbles[i].pos = sgVec2Add(sub->bubbles[i].pos, sgVec2f(0.0, -0.05));
-            sub->bubbles[i].vel = sgVec2SetLength(sub->bubbles[i].vel, sgVec2GetLength(sub->bubbles[i].vel) * 0.99);
+            sub->bubbles[i].vel = sgVec2Resize(sub->bubbles[i].vel, sgVec2Length(sub->bubbles[i].vel) * 0.99);
             sub->bubbles[i].alpha -= 1.0/128.0;
         }
     }

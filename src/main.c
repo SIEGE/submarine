@@ -69,7 +69,9 @@ int main()
     sgViewportReset(viewport);
     viewzoom = 1.0;
 
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetPointSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
+    sgDrawSetPolygonSmooth(SG_TRUE);
 
     edges = sgListCreate();
 

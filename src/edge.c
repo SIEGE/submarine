@@ -42,7 +42,7 @@ Edge* createEdge(SGList* list, SGVec2 head, SGVec2 tail)
 
 void drawEdgeDBG(Edge* edge)
 {
-    sgDrawSetSmooth(SG_FALSE);
+    sgDrawSetLineSmooth(SG_FALSE);
 
     sgDrawColor4f(1.0, 1.0, 1.0, 0.125);
     sgDrawLine(edge->head.x, edge->head.y, edge->tail.x, edge->tail.y);
@@ -52,7 +52,7 @@ void drawEdgeDBG(Edge* edge)
     sgDrawLine(c.x, c.y, c.x + n.x * 16, c.y + n.y * 16);
     sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
 
-    sgDrawSetSmooth(SG_TRUE);
+    sgDrawSetLineSmooth(SG_TRUE);
 }
 
 void lightEdges(SGVec2 pos, float radius, float dim)

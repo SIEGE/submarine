@@ -121,7 +121,7 @@ void _sgIntersectCL(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2*
     p2 = sgVec2Sub(p2, c);
 
     SGVec2 d = sgVec2Sub(p2, p1);
-    float dr = sgVec2GetLength(d);
+    float dr = sgVec2Length(d);
     float dr2 = dr*dr;
 
     float D = p1.x * p2.y - p2.x * p1.y;
@@ -320,7 +320,7 @@ SGVec2 nearestInter(SGVec2 pos, SGVec2 ray, struct Edge* ignore, struct Edge** i
         curr = sgIntersectSR(edge->head, edge->tail, pos, sgVec2Add(pos, ray), &hasinter);
         if(hasinter)
         {
-            clen = sgVec2GetLength(sgVec2Sub(curr, pos));
+            clen = sgVec2Length(sgVec2Sub(curr, pos));
             if(!refl || clen < ilen)
             {
                 ilen = clen;
@@ -361,7 +361,7 @@ void reflectRay(SGVec2 pos, SGVec2 ray, SGColor color, size_t num, struct Edge* 
         curr = sgIntersectSR(edge->head, edge->tail, pos, sgVec2Add(pos, ray), &hasinter);
         if(hasinter)
         {
-            clen = sgVec2GetLength(sgVec2Sub(curr, pos));
+            clen = sgVec2Length(sgVec2Sub(curr, pos));
             if(!refl || clen < ilen)
             {
                 ilen = clen;
