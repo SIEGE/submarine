@@ -19,9 +19,9 @@ void evPingTick(SGEntity* entity)
     Edge* edge;
     SGVec2 inter = nearestInter(ping->pos, ping->vel, ping->edge, &edge);
 
-    float dist = sgVec2GetLength(sgVec2Sub(inter, ping->pos));
+    float dist = sgVec2Length(sgVec2Sub(inter, ping->pos));
 
-    if(edge && dist < sgVec2GetLength(ping->vel))
+    if(edge && dist < sgVec2Length(ping->vel))
     {
         SGAudioSource* srcPing = sgAudioSourceCreate(1.0, 0.25, 2.0, SG_FALSE);
         sgAudioSourceQueueBuffer(srcPing, bufPing);
@@ -29,7 +29,7 @@ void evPingTick(SGEntity* entity)
         sgAudioSourceDestroyLazy(srcPing);
 
         ping->pos = inter;
-        ping->vel = sgVec2SetLength(sgVec2Reflect(ping->vel, edgeNormal(edge)), sgVec2GetLength(ping->vel));
+        ping->vel = sgVec2Resize(sgVec2Reflect(ping->vel, edgeNormal(edge)), sgVec2Length(ping->vel));
         ping->edge = edge;
 
         lightEdges(ping->pos, ping->radius, 1.0/512.0);

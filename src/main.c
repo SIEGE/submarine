@@ -47,8 +47,8 @@ int main()
 
     size_t i;
 
-    font = sgFontCreate("data/fonts/DejaVuSans.ttf", 8, 127);
-    uifont = sgFontCreate("data/fonts/DejaVuSans.ttf", 12, 127);
+    font = sgFontCreate("data/fonts/DejaVuSans.ttf", 8, 0, 127);
+    uifont = sgFontCreate("data/fonts/DejaVuSans.ttf", 12, 0, 127);
 
     space = sgPhysicsSpaceGetDefault();
     sbody = sgPhysicsSpaceGetStaticBody(space);
