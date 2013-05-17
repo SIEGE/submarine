@@ -4,114 +4,6 @@
 
 #include <math.h>
 
-SGVec2 _sgIntersectLL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, float* den, SGVec2* u)
-{
-    SGVec2 p43 = sgVec2Sub(p4, p3);
-    SGVec2 p13 = sgVec2Sub(p1, p3);
-    SGVec2 p21 = sgVec2Sub(p2, p1);
-
-    float tden;
-    if(!den)
-        den = &tden;
-
-    *den = p43.y * p21.x - p43.x * p21.y;
-
-    SGVec2 tu;
-    if(!u)
-        u = &tu;
-
-    u->x = (p43.x * p13.y - p43.y * p13.x) / *den;
-    u->y = (p21.x * p13.y - p21.y * p13.x) / *den;
-
-    SGVec2 v;
-    v.x = p1.x + u->x * p21.x;
-    v.y = p1.y + u->x * p21.y;
-    return v;
-}
-
-SGVec2 sgIntersectLL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0);
-    return v;
-}
-
-SGVec2 sgIntersectSS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && SG_IN_RANGE(u.x, 0.0, 1.0) && SG_IN_RANGE(u.y, 0.0, 1.0);
-    return v;
-}
-SGVec2 sgIntersectLS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && SG_IN_RANGE(u.y, 0.0, 1.0);
-    return v;
-}
-SGVec2 sgIntersectSL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && SG_IN_RANGE(u.x, 0.0, 1.0);
-    return v;
-}
-SGVec2 sgIntersectRR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && u.x >= 0.0 && u.y >= 0.0;
-    return v;
-}
-SGVec2 sgIntersectLR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && u.y >= 0.0;
-    return v;
-}
-SGVec2 sgIntersectRL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && u.x >= 0.0;
-    return v;
-}
-SGVec2 sgIntersectSR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && SG_IN_RANGE(u.x, 0.0, 1.0) && u.y >= 0.0;
-    return v;
-}
-SGVec2 sgIntersectRS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter)
-{
-    float den;
-    SGVec2 u;
-    SGVec2 v = _sgIntersectLL(p1, p2, p3, p4, &den, &u);
-    if(inter)
-        *inter = (den != 0) && u.x >= 0.0 && SG_IN_RANGE(u.y, 0.0, 1.0);
-    return v;
-}
-
 /**
  * C - circle
  */
@@ -128,11 +20,11 @@ void _sgIntersectCL(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2*
 
     *discr = r*r * dr2 - D*D;
 
-    i1->x = ( D * d.y + SG_NSIGN(d.y) * d.x * sqrt(*discr)) / dr2;
+    i1->x = ( D * d.y + SG_PSIGN(d.y) * d.x * sqrt(*discr)) / dr2;
     i1->y = (-D * d.x +         SG_ABS(d.y) * sqrt(*discr)) / dr2;
     *i1 = sgVec2Add(*i1, c);
 
-    i2->x = ( D * d.y - SG_NSIGN(d.y) * d.x * sqrt(*discr)) / dr2;
+    i2->x = ( D * d.y - SG_PSIGN(d.y) * d.x * sqrt(*discr)) / dr2;
     i2->y = (-D * d.x -         SG_ABS(d.y) * sqrt(*discr)) / dr2;
     *i2 = sgVec2Add(*i2, c);
 }
@@ -160,8 +52,8 @@ size_t sgIntersectCS(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2
 
     size_t num = sgIntersectCL(c, r, p1, p2, i1, i2);
 
-    SGbool ir1 = SG_IN_RANGE(i1->x, p1.x, p2.x) && SG_IN_RANGE(i1->y, p1.y, p2.y);
-    SGbool ir2 = SG_IN_RANGE(i2->x, p1.x, p2.x) && SG_IN_RANGE(i2->y, p1.y, p2.y);
+    SGbool ir1 = SG_IN_XRANGE(i1->x, p1.x, p2.x) && SG_IN_XRANGE(i1->y, p1.y, p2.y);
+    SGbool ir2 = SG_IN_XRANGE(i2->x, p1.x, p2.x) && SG_IN_XRANGE(i2->y, p1.y, p2.y);
 
     if(num == 2)
     {
@@ -317,7 +209,7 @@ SGVec2 nearestInter(SGVec2 pos, SGVec2 ray, struct Edge* ignore, struct Edge** i
         if(edge == ignore)
             continue;
 
-        curr = sgIntersectSR(edge->head, edge->tail, pos, sgVec2Add(pos, ray), &hasinter);
+        hasinter = sgIntersectSR(&curr, edge->head, edge->tail, pos, sgVec2Add(pos, ray));
         if(hasinter)
         {
             clen = sgVec2Length(sgVec2Sub(curr, pos));
@@ -358,7 +250,7 @@ void reflectRay(SGVec2 pos, SGVec2 ray, SGColor color, size_t num, struct Edge* 
         if(edge == ignore)
             continue;
 
-        curr = sgIntersectSR(edge->head, edge->tail, pos, sgVec2Add(pos, ray), &hasinter);
+        hasinter = sgIntersectSR(&curr, edge->head, edge->tail, pos, sgVec2Add(pos, ray));
         if(hasinter)
         {
             clen = sgVec2Length(sgVec2Sub(curr, pos));

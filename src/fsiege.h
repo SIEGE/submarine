@@ -7,24 +7,6 @@
 
 #include "common.h"
 
-//#define SG_IN_RANGE(x, min, max) (((min) <= (x)) && ((x) <= (max)))
-#define SG_IN_RANGE(x, min, max) ((SG_MIN(min, max) <= (x)) && ((x) <= SG_MAX(min, max)))
-#define SG_IN_CRANGE(x, min, max) (((min) == (max)) || SG_IN_RANGE(x, min, max))
-#define SG_SIGN(x) (((x) > 0) - ((x) < 0))
-#define SG_NSIGN(x) (((x) < 0) ? -1 : 1)
-
-SGVec2 _sgIntersectLL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, float* den, SGVec2* u);
-SGVec2 sgIntersectLL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-
-SGVec2 sgIntersectSS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectLS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectSL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectRR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectLR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectRL(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectSR(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-SGVec2 sgIntersectRS(SGVec2 p1, SGVec2 p2, SGVec2 p3, SGVec2 p4, SGbool* inter);
-
 /**
  * C - circle
  */

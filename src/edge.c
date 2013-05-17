@@ -97,8 +97,8 @@ void lightEdges(SGVec2 pos, float radius, float dim)
 
             proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
             proj = sgVec2Add(proj, edge->head);
-            if((edge->head.x == edge->tail.x || SG_IN_RANGE(proj.x, edge->head.x, edge->tail.x))
-            && (edge->head.y == edge->tail.y || SG_IN_RANGE(proj.y, edge->head.y, edge->tail.y)))
+            if((edge->head.x == edge->tail.x || SG_IN_XRANGE(proj.x, edge->head.x, edge->tail.x))
+            && (edge->head.y == edge->tail.y || SG_IN_XRANGE(proj.y, edge->head.y, edge->tail.y)))
                 pdist = sgVec2Distance(proj, pos);
             else
             {
@@ -145,8 +145,8 @@ void lightEdges(SGVec2 pos, float radius, float dim)
             {
                 proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
                 proj = sgVec2Add(proj, edge->head);
-                if((edge->head.x == edge->tail.x || SG_IN_RANGE(proj.x, edge->head.x, edge->tail.x))
-                && (edge->head.y == edge->tail.y || SG_IN_RANGE(proj.y, edge->head.y, edge->tail.y)))
+                if((edge->head.x == edge->tail.x || SG_IN_XRANGE(proj.x, edge->head.x, edge->tail.x))
+                && (edge->head.y == edge->tail.y || SG_IN_XRANGE(proj.y, edge->head.y, edge->tail.y)))
                     pdist = sgVec2Distance(proj, pos);
                 else
                 {
