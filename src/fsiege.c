@@ -110,84 +110,84 @@ float frand2(float min, float max)
 
 void drawEArcRads(float x, float y, float rx, float ry, float a1, float a2, SGbool ccw, SGbool fill, SGColor a, SGColor b)
 {
-	float adiff = a2 - a1;
+    float adiff = a2 - a1;
 
-	if(!ccw && adiff < 0)
-		adiff = adiff + 2 * SG_PI;
-	else if(ccw && adiff > 0)
-		adiff = adiff - 2 * SG_PI;
+    if(!ccw && adiff < 0)
+        adiff = adiff + 2 * SG_PI;
+    else if(ccw && adiff > 0)
+        adiff = adiff - 2 * SG_PI;
 
-	float ra = (rx + ry) / 2.0;
-	SGuint numsides = (SGuint)(ra * SG_ABS(adiff) / 2 / SG_PI * 4);
-	adiff /= numsides;
-	SGuint i;
+    float ra = (rx + ry) / 2.0;
+    SGuint numsides = (SGuint)(ra * SG_ABS(adiff) / 2 / SG_PI * 4);
+    adiff /= numsides;
+    SGuint i;
 
-	if(fill)
-	{
-		sgDrawBegin(SG_TRIANGLE_FAN);
-		sgDrawColor4fv(&a.r);
-		sgDrawVertex2f(x, y);
-	}
-	else
-		sgDrawBegin(SG_LINE_STRIP);
+    if(fill)
+    {
+        sgDrawBegin(SG_TRIANGLE_FAN);
+        sgDrawColor4fv(&a.r);
+        sgDrawVertex2f(x, y);
+    }
+    else
+        sgDrawBegin(SG_LINE_STRIP);
 
     sgDrawColor4fv(&b.r);
-	for(i = 0; i <= numsides; i++)
-	{
-		float a = a1 + i * adiff;
-		sgDrawVertex2f(x + cos(a) * rx, y + sin(a) * ry);
-	}
+    for(i = 0; i <= numsides; i++)
+    {
+        float a = a1 + i * adiff;
+        sgDrawVertex2f(x + cos(a) * rx, y + sin(a) * ry);
+    }
 
-	sgDrawEnd();
+    sgDrawEnd();
 }
 void drawEArcRads2(float x, float y, float rx1, float ry1, float rx2, float ry2, float a1, float a2, SGbool ccw, SGbool fill, SGColor ac, SGColor bc)
 {
-	float adiff = a2 - a1;
+    float adiff = a2 - a1;
 
-	if(!ccw && adiff < 0)
-		adiff = adiff + 2 * SG_PI;
-	else if(ccw && adiff > 0)
-		adiff = adiff - 2 * SG_PI;
+    if(!ccw && adiff < 0)
+        adiff = adiff + 2 * SG_PI;
+    else if(ccw && adiff > 0)
+        adiff = adiff - 2 * SG_PI;
 
-	float ra = (rx1 + ry1 + rx2 + ry2) / 4.0;
-	SGuint numsides = (SGuint)(ra * SG_ABS(adiff) / 2 / SG_PI * 4);
-	adiff /= numsides;
-	SGuint i;
+    float ra = (rx1 + ry1 + rx2 + ry2) / 4.0;
+    SGuint numsides = (SGuint)(ra * SG_ABS(adiff) / 2 / SG_PI * 4);
+    adiff /= numsides;
+    SGuint i;
 
-	if(fill)
-	{
-		sgDrawBegin(SG_TRIANGLE_STRIP);
-	}
-	else
-		sgDrawBegin(SG_LINE_STRIP);
+    if(fill)
+    {
+        sgDrawBegin(SG_TRIANGLE_STRIP);
+    }
+    else
+        sgDrawBegin(SG_LINE_STRIP);
 
     sgDrawColor4fv(&bc.r);
-	for(i = 0; i <= numsides; i++)
-	{
-		float a = a1 + i * adiff;
-		if(fill)
-		{
-		    sgDrawColor4fv(&ac.r);
-		    sgDrawVertex2f(x + cos(a) * rx1, y + sin(a) * ry1);
-		    sgDrawColor4fv(&bc.r);
-		}
+    for(i = 0; i <= numsides; i++)
+    {
+        float a = a1 + i * adiff;
+        if(fill)
+        {
+            sgDrawColor4fv(&ac.r);
+            sgDrawVertex2f(x + cos(a) * rx1, y + sin(a) * ry1);
+            sgDrawColor4fv(&bc.r);
+        }
 
-		sgDrawVertex2f(x + cos(a) * rx2, y + sin(a) * ry2);
-	}
+        sgDrawVertex2f(x + cos(a) * rx2, y + sin(a) * ry2);
+    }
 
-	sgDrawEnd();
+    sgDrawEnd();
 
-	if(!fill)
-	{
-	    sgDrawBegin(SG_LINE_STRIP);
-	    sgDrawColor4fv(&ac.r);
+    if(!fill)
+    {
+        sgDrawBegin(SG_LINE_STRIP);
+        sgDrawColor4fv(&ac.r);
         for(i = 0; i <= numsides; i++)
         {
             float a = a1 + i * adiff;
             sgDrawVertex2f(x + cos(a) * rx1, y + sin(a) * ry1);
         }
         sgDrawEnd();
-	}
+    }
 }
 
 SGVec2 nearestInter(SGVec2 pos, SGVec2 ray, struct Edge* ignore, struct Edge** iedge)
