@@ -37,11 +37,10 @@ int main()
 {
     sgLoadModule("SDL");
     sgLoadModule("OpenGL");
-    sgLoadModule("DevIL");
+    sgLoadModule("STB-Image");
     sgLoadModule("OpenAL");
-    sgLoadModule("SndFile");
-    sgLoadModule("Freetype");
-    sgLoadModule("Chipmunk");
+    sgLoadModule("STB-Vorbis");
+    sgLoadModule("STB-TrueType");
     sgInit(0);
     sgWindowOpen(640, 480, 32, 0);
 
@@ -59,7 +58,7 @@ int main()
     bufMusic = sgAudioBufferCreateFile("data/audio/WagnerRideOfTheValkyries.ogg");
     bufPing = sgAudioBufferCreateFile("data/audio/ping.ogg");
     bufEngine = sgAudioBufferCreateFile("data/audio/engine.ogg");
-    bufGrinding = sgAudioBufferCreateFile("data/audio/grinding.wav");
+    bufGrinding = sgAudioBufferCreateFile("data/audio/grinding.ogg");
 
     srcMusic = sgAudioSourceCreate(0.0, 0.5, 0.25, SG_TRUE);
     sgAudioSourceQueueBuffer(srcMusic, bufMusic);
