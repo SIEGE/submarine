@@ -229,7 +229,7 @@ void subDrawHealth(SGEntity* entity)
     sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
 }
 
-void SG_EXPORT subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance)
+void SG_CALL subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance)
 {
     if(rand() % 100 >= chance)
         return;
@@ -250,14 +250,14 @@ void SG_EXPORT subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance)
         sub->head = (sub->head + 1) % (sizeof(sub->bubbles) / sizeof(*sub->bubbles));
 }
 
-void SG_EXPORT lcSubDestroy(SGEntity* entity)
+void SG_CALL lcSubDestroy(SGEntity* entity)
 {
     Sub* sub = entity->data;
 
     sgAudioSourceDestroy(sub->srcEngine);
     free(sub);
 }
-void SG_EXPORT lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll)
+void SG_CALL lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll)
 {
     Sub* sub = entity->data;
 
@@ -274,13 +274,13 @@ void SG_EXPORT lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollis
     float dot = sgVec2Dot(sgVec2Normalize(impulse), sgVec2Normalize(sub->vel));
     sgAudioSourceSetVolume(sub->srcGrinding, fabs(dot));
 }
-void SG_EXPORT evSubMouseButtonLeftPress(SGEntity* entity)
+void SG_CALL evSubMouseButtonLeftPress(SGEntity* entity)
 {
     //SGVec2 mpos = getMousePos();
 
 
 }
-void SG_EXPORT evSubMouseButtonRightPress(SGEntity* entity)
+void SG_CALL evSubMouseButtonRightPress(SGEntity* entity)
 {
     SGVec2 mpos = getMousePos();
 
@@ -294,7 +294,7 @@ void SG_EXPORT evSubMouseButtonRightPress(SGEntity* entity)
 
     pingCreate(pos, sgVec2Resize(sgVec2Sub(mpos, pos), 5.0), 1.0, 64.0, NULL);
 }
-void SG_EXPORT evSubMouseWheel(SGEntity* entity, SGint wheel)
+void SG_CALL evSubMouseWheel(SGEntity* entity, SGint wheel)
 {
     SGint pwheel = sgMouseGetWheelPrev();
 
@@ -303,7 +303,7 @@ void SG_EXPORT evSubMouseWheel(SGEntity* entity, SGint wheel)
     else
         viewzoom = SG_MIN(viewzoom + 0.1, 2.0);
 }
-void SG_EXPORT evSubKeyboardKeyPress(SGEntity* entity, SGenum key)
+void SG_CALL evSubKeyboardKeyPress(SGEntity* entity, SGenum key)
 {
     Sub* sub = entity->data;
 
@@ -323,7 +323,7 @@ void SG_EXPORT evSubKeyboardKeyPress(SGEntity* entity, SGenum key)
             break;
     }
 }
-void SG_EXPORT evSubKeyboardKey(SGEntity* entity, SGenum key)
+void SG_CALL evSubKeyboardKey(SGEntity* entity, SGenum key)
 {
     Sub* sub = entity->data;
 
@@ -355,7 +355,7 @@ void SG_EXPORT evSubKeyboardKey(SGEntity* entity, SGenum key)
 
     subCreateBubble(entity, rear, 25);
 }
-void SG_EXPORT evSubTick(SGEntity* entity)
+void SG_CALL evSubTick(SGEntity* entity)
 {
     Sub* sub = entity->data;
 
@@ -392,7 +392,7 @@ void SG_EXPORT evSubTick(SGEntity* entity)
 
     //subCheckCollision(entity);
 }
-void SG_EXPORT evSubDraw(SGEntity* entity)
+void SG_CALL evSubDraw(SGEntity* entity)
 {
     size_t i;
 

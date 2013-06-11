@@ -19,6 +19,6 @@ void lcPingDestroy(SGEntity* entity);
 void evPingTick(SGEntity* entity);
 void evPingDraw(SGEntity* entity);
 
-Ping* SG_EXPORT pingCreate(SGVec2 pos, SGVec2 vel, float str, float radius, Edge* edge);
+Ping* SG_CALL pingCreate(SGVec2 pos, SGVec2 vel, float str, float radius, Edge* edge);
 
 #endif // __PING_H__

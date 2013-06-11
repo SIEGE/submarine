@@ -47,7 +47,7 @@ void evPingDraw(SGEntity* entity)
     sgDrawCircle(ping->pos.x, ping->pos.y, 8, SG_TRUE);*/
 }
 
-Ping* SG_EXPORT pingCreate(SGVec2 pos, SGVec2 vel, float str, float radius, Edge* edge)
+Ping* SG_CALL pingCreate(SGVec2 pos, SGVec2 vel, float str, float radius, Edge* edge)
 {
     Ping* ping = malloc(sizeof(Ping));
     if(!ping)

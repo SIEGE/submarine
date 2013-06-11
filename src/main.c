@@ -27,7 +27,7 @@ void cbMarchDraw(Cave* cave, size_t i, size_t j, SGubyte map, float x1, float y1
     sgDrawLine(x1, y1, x2, y2);
 }
 
-void SG_EXPORT evKeyboardKeyPress(SGEntity* entity, SGenum key)
+void SG_CALL evKeyboardKeyPress(SGEntity* entity, SGenum key)
 {
     if(key == SG_KEY_F1)
         debugmode = !debugmode;
