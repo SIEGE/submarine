@@ -9,7 +9,6 @@ typedef struct Edge
     SGListNode* node;
     SGVec2 head;
     SGVec2 tail;
-    SGPhysicsShape* shape;
 } Edge;
 SGList* edges;
 

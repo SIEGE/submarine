@@ -3,9 +3,6 @@
 
 #include <siege/siege.h>
 
-SGPhysicsSpace* space;
-SGPhysicsBody* sbody;
-
 SGAudioBuffer* bufMusic;
 SGAudioBuffer* bufPing;
 SGAudioBuffer* bufEngine;

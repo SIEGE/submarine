@@ -21,7 +21,6 @@ void destroyEdge(Edge* edge)
     if(!edge)
         return;
     sgListRemoveNode(edge->list, edge->node);
-    sgPhysicsShapeDestroy(edge->shape);
     free(edge);
 }
 Edge* createEdge(SGList* list, SGVec2 head, SGVec2 tail)
@@ -34,8 +33,6 @@ Edge* createEdge(SGList* list, SGVec2 head, SGVec2 tail)
 
     edge->list = list;
     edge->node = sgListAppend(list, edge);
-
-    edge->shape = sgPhysicsShapeCreateSegment(sbody, head.x, head.y, tail.x, tail.y, 1.0);
 
     return edge;
 }

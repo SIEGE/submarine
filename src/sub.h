@@ -27,9 +27,6 @@ typedef struct Sub
     SGubyte mode;
 
     float angle;
-
-    /*SGPhysicsBody* body;
-    SGPhysicsShape* shape;*/
 } Sub;
 SGVec2 subvects[90];
 SGVec2 subtail[2][9];
@@ -38,7 +35,6 @@ float radii[4];
 void SG_CALL subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance);
 
 void SG_CALL lcSubDestroy(SGEntity* entity);
-void SG_CALL lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll);
 void SG_CALL evSubMouseButtonLeftPress(SGEntity* entity);
 void SG_CALL evSubMouseButtonRightPress(SGEntity* entity);
 void SG_CALL evSubMouseWheel(SGEntity* entity, SGint wheel);

@@ -257,23 +257,6 @@ void SG_CALL lcSubDestroy(SGEntity* entity)
     sgAudioSourceDestroy(sub->srcEngine);
     free(sub);
 }
-void SG_CALL lcSubCollision(SGEntity* entity, SGEntity* other, SGPhysicsCollision* coll)
-{
-    Sub* sub = entity->data;
-
-    /*SGVec2 vel;
-    sgPhysicsBodyGetVel(sub->body, &vel.x, &vel.y);*/
-
-    SGVec2 impulse;
-    SGVec2 normal;
-    sgPhysicsCollisionGetImpulse(coll, &impulse.x, &impulse.y, SG_TRUE);
-    //printf("COLL %f,%f\n", xi, yi);
-
-    sgPhysicsCollisionGetNormal(coll, 0, &normal.x, &normal.y);
-
-    float dot = sgVec2Dot(sgVec2Normalize(impulse), sgVec2Normalize(sub->vel));
-    sgAudioSourceSetVolume(sub->srcGrinding, fabs(dot));
-}
 void SG_CALL evSubMouseButtonLeftPress(SGEntity* entity)
 {
     //SGVec2 mpos = getMousePos();
@@ -465,10 +448,6 @@ void SG_CALL evSubDraw(SGEntity* entity)
     subDrawHealth(entity);
 
     sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
-
-    /*sgPhysicsShapeDrawDBG(sub->shape);
-
-    sgPhysicsBodySetVel(sub->body, sub->vel.x, sub->vel.y);*/
 }
 
 Sub* subCreate(SGVec2 pos)
@@ -479,7 +458,6 @@ Sub* subCreate(SGVec2 pos)
     sub->entity = sgEntityCreate();
     sub->entity->data = sub;
     sub->entity->lcDestroy = lcSubDestroy;
-    sub->entity->lcCollision = lcSubCollision;
     sub->entity->evMouseButtonLeftPress = evSubMouseButtonLeftPress;
     sub->entity->evMouseButtonRightPress = evSubMouseButtonRightPress;
     sub->entity->evMouseWheel = evSubMouseWheel;
@@ -505,25 +483,6 @@ Sub* subCreate(SGVec2 pos)
     sub->mode = sizeof(radii) / sizeof(*radii) - 1;
 
     sub->angle = 0.0;
-
-    /*sub->body = sgPhysicsBodyCreate(space, SG_PHYSICS_BODY_NORMAL);
-    sgPhysicsBodySetPos(sub->body, pos.x, pos.y);
-
-    SGVec2 verts[4];
-    verts[0] = sgVec2f(-12.0, -3.0);
-    verts[1] = sgVec2f(-12.0, +4.0);
-    verts[2] = sgVec2f(+12.0, +4.0);
-    verts[3] = sgVec2f(+12.0, -3.0);
-
-    //sub->shape = sgPhysicsShapeCreateCircle(sub->body, 0.0, 0.0, 4.0, 4.0);
-    sub->shape = sgPhysicsShapeCreatePoly(sub->body, 0.0, 0.0, (float*)verts, 4);
-    sgPhysicsShapeSetRestitution(sub->shape, 0.25);
-    sgPhysicsShapeSetFriction(sub->shape, 0.75);
-
-    sgPhysicsBodySetMass(sub->body, 1.0);
-    sgPhysicsBodySetMoment(sub->body, sgPhysicsShapeGetMomentMass(sub->shape, 1.0));
-
-    sgEntitySetPhysicsBody(sub->entity, sub->body);*/
 
     return sub;
 }

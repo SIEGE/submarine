@@ -49,12 +49,6 @@ int main()
     font = sgFontCreate("data/fonts/DejaVuSans.ttf", 8, 0, 127);
     uifont = sgFontCreate("data/fonts/DejaVuSans.ttf", 12, 0, 127);
 
-    space = sgPhysicsSpaceGetDefault();
-    sbody = sgPhysicsSpaceGetStaticBody(space);
-
-    sgPhysicsSpaceSetGravity(space, 0.0, 0.0);
-    sgPhysicsSpaceSetDamping(space, 0.95);
-
     bufMusic = sgAudioBufferCreateFile("data/audio/WagnerRideOfTheValkyries.ogg");
     bufPing = sgAudioBufferCreateFile("data/audio/ping.ogg");
     bufEngine = sgAudioBufferCreateFile("data/audio/engine.ogg");
