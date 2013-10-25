@@ -35,12 +35,6 @@ void SG_CALL evKeyboardKeyPress(SGEntity* entity, SGenum key)
 
 int main()
 {
-    sgLoadModule("SDL");
-    sgLoadModule("OpenGL");
-    sgLoadModule("STB-Image");
-    sgLoadModule("OpenAL");
-    sgLoadModule("STB-Vorbis");
-    sgLoadModule("STB-TrueType");
     sgInit(0);
     sgWindowOpen(640, 480, 32, 0);
 
