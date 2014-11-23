@@ -76,7 +76,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
         numi = sgIntersectCS(pos, radius, edge->head, edge->tail, &i1, &i2);
         if(numi == 2)
         {
-            proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
+            proj = sgVec2Project(sgVec2Normalize(sgVec2Sub(pos, edge->head)), sgVec2Normalize(sgVec2Sub(edge->tail, edge->head)));
             proj = sgVec2Add(proj, edge->head);
             pdist = sgVec2Distance(proj, pos);
 
@@ -92,7 +92,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
             hdist = sgVec2Distance(pos, edge->head);
             tdist = sgVec2Distance(pos, edge->tail);
 
-            proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
+            proj = sgVec2Project(sgVec2Normalize(sgVec2Sub(pos, edge->head)), sgVec2Normalize(sgVec2Sub(edge->tail, edge->head)));
             proj = sgVec2Add(proj, edge->head);
             if((edge->head.x == edge->tail.x || SG_IN_XRANGE(proj.x, edge->head.x, edge->tail.x))
             && (edge->head.y == edge->tail.y || SG_IN_XRANGE(proj.y, edge->head.y, edge->tail.y)))
@@ -140,7 +140,7 @@ void lightEdges(SGVec2 pos, float radius, float dim)
             tdist = sgVec2Distance(pos, edge->tail);
             if(hdist <= radius) // tdist is as well then!
             {
-                proj = sgVec2Project(sgVec2Sub(pos, edge->head), sgVec2Sub(edge->tail, edge->head));
+                proj = sgVec2Project(sgVec2Normalize(sgVec2Sub(pos, edge->head)), sgVec2Normalize(sgVec2Sub(edge->tail, edge->head)));
                 proj = sgVec2Add(proj, edge->head);
                 if((edge->head.x == edge->tail.x || SG_IN_XRANGE(proj.x, edge->head.x, edge->tail.x))
                 && (edge->head.y == edge->tail.y || SG_IN_XRANGE(proj.y, edge->head.y, edge->tail.y)))

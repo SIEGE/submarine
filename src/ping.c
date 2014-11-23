@@ -29,7 +29,7 @@ void evPingTick(SGEntity* entity)
         sgAudioSourceDestroyLazy(srcPing);
 
         ping->pos = inter;
-        ping->vel = sgVec2Resize(sgVec2Reflect(ping->vel, edgeNormal(edge)), sgVec2Length(ping->vel));
+        ping->vel = sgVec2Resize(sgVec2Reflect(sgVec2Normalize(ping->vel), edgeNormal(edge)), sgVec2Length(ping->vel));
         ping->edge = edge;
 
         lightEdges(ping->pos, ping->radius, 1.0/512.0);

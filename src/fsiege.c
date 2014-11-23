@@ -271,7 +271,7 @@ void reflectRay(SGVec2 pos, SGVec2 ray, SGColor color, size_t num, struct Edge* 
         sgDrawColor4f(color.r, color.g, color.b, color.a * (1.0 - (num + 1.0) / (float)NREFLECTS));
         sgDrawVertex2f(inter.x, inter.y);
         sgDrawEnd();
-        reflect = sgVec2Reflect(ray, edgeNormal(iedge));
+        reflect = sgVec2Reflect(sgVec2Normalize(ray), edgeNormal(iedge));
         reflectRay(inter, reflect, color, num + 1, iedge);
     }
 }
