@@ -20,11 +20,11 @@ SGbool debugmode;
 void cbMarchEdge(Cave* cave, size_t i, size_t j, SGubyte map, float x1, float y1, float x2, float y2, void* data)
 {
     createEdge(edges, sgVec2f(x1, y1), sgVec2f(x2, y2));
-    //sgDrawLine(x1, y1, x2, y2);
+    //sgDrawLine2f(x1, y1, x2, y2);
 }
 void cbMarchDraw(Cave* cave, size_t i, size_t j, SGubyte map, float x1, float y1, float x2, float y2, void* data)
 {
-    sgDrawLine(x1, y1, x2, y2);
+    sgDrawLine2f(x1, y1, x2, y2);
 }
 
 void SG_CALL evKeyboardKeyPress(SGEntity* entity, SGenum key)
@@ -175,7 +175,7 @@ int main()
 
     while(sgLoop(NULL))
     {
-        sgEntityGetPos(sub->entity, &pos.x, &pos.y);
+        pos = sgEntityGetPos2fv(sub->entity);
 
         //mpos = getMousePos();
         //norm = sgVec2Normalize(sgVec2Sub(mpos, pos));

@@ -32,9 +32,9 @@ void evPingEdgeDraw(SGEntity* entity)
 
     sgDrawBegin(SG_LINES);
             sgDrawColor4f(c.r, c.g, c.b, pe->halpha * c.a);
-            sgDrawVertex2fv(&pe->edge.head.x);
+            sgDrawVertex2fv(pe->edge.head);
             sgDrawColor4f(c.r, c.g, c.b, pe->talpha * c.a);
-            sgDrawVertex2fv(&pe->edge.tail.x);
+            sgDrawVertex2fv(pe->edge.tail);
     sgDrawEnd();
 }
 

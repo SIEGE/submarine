@@ -42,11 +42,11 @@ void drawEdgeDBG(Edge* edge)
     sgDrawSetLineSmooth(SG_FALSE);
 
     sgDrawColor4f(1.0, 1.0, 1.0, 0.125);
-    sgDrawLine(edge->head.x, edge->head.y, edge->tail.x, edge->tail.y);
+    sgDrawLine2fv(edge->head, edge->tail);
     sgDrawColor4f(1.0, 0.0, 0.0, 1.0);
     SGVec2 c = edgeCenter(edge);
     SGVec2 n = edgeNormal(edge);
-    sgDrawLine(c.x, c.y, c.x + n.x * 16, c.y + n.y * 16);
+    sgDrawLine2fv(c, sgVec2Add(c, sgVec2Mulf(n, 16)));
     sgDrawColor4f(1.0, 1.0, 1.0, 1.0);
 
     sgDrawSetLineSmooth(SG_TRUE);

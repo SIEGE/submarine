@@ -8,8 +8,7 @@
 
 /*void subCheckCollision(SGEntity* entity)
 {
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     SGVec2 inter;
     SGbool hasinter;
@@ -63,25 +62,24 @@ void drawRects(float x, float y, size_t mask, SGColor c)
 {
     sgDrawColor4f(c.r, c.g, c.b, c.a * 29.0/255.0);
     if(mask >= 3)
-        sgDrawColor4f(c.r, c.g, c.b, c.a);
-    sgDrawRectangleWH(x - 16 + 2, y + 16 - 8, 5, 1, SG_TRUE);
+        sgDrawColorC(c);
+    sgDrawRectangle2fWH(x - 16 + 2, y + 16 - 8, 5, 1, SG_TRUE);
     if(mask >= 2)
-        sgDrawColor4f(c.r, c.g, c.b, c.a);
-    sgDrawRectangleWH(x - 16 + 2, y + 16 - 6, 5, 1, SG_TRUE);
+        sgDrawColorC(c);
+    sgDrawRectangle2fWH(x - 16 + 2, y + 16 - 6, 5, 1, SG_TRUE);
     if(mask >= 1)
-        sgDrawColor4f(c.r, c.g, c.b, c.a);
-    sgDrawRectangleWH(x - 16 + 2, y + 16 - 4, 5, 1, SG_TRUE);
+        sgDrawColorC(c);
+    sgDrawRectangle2fWH(x - 16 + 2, y + 16 - 4, 5, 1, SG_TRUE);
     //if(mask >= 0) // always
-        sgDrawColor4f(c.r, c.g, c.b, c.a);
-    sgDrawRectangleWH(x - 16 + 2, y + 16 - 2, 5, 1, SG_TRUE);
+        sgDrawColorC(c);
+    sgDrawRectangle2fWH(x - 16 + 2, y + 16 - 2, 5, 1, SG_TRUE);
 }
 
 void subDrawMode(SGEntity* entity)
 {
     Sub* sub = entity->data;
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     sgDrawColor4f(0.0, 0.5, 0.75, 1.0);
     sgViewportSet4i(viewport, 0, 0, 640, 480);
@@ -108,7 +106,7 @@ void subDrawMode(SGEntity* entity)
     sgDrawSetPolygonSmooth(SG_FALSE);
     drawRects(x, y, 0, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
+    sgDrawRectangle2fWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
     sgDrawSetPolygonSmooth(SG_TRUE);
     sgDrawSetLineSmooth(SG_TRUE);
     sgDrawSetPointSmooth(SG_TRUE);
@@ -166,7 +164,7 @@ void subDrawMode(SGEntity* entity)
     sgDrawSetPointSmooth(SG_FALSE);
     drawRects(x, y, 2, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
+    sgDrawRectangle2fWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
     sgDrawSetPolygonSmooth(SG_TRUE);
     sgDrawSetLineSmooth(SG_TRUE);
     sgDrawSetPointSmooth(SG_TRUE);
@@ -181,7 +179,7 @@ void subDrawMode(SGEntity* entity)
     sgDrawSetPointSmooth(SG_FALSE);
     drawRects(x, y, 3, sgColor4f(color.r, color.g, color.b, color.a));
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawRectangleWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
+    sgDrawRectangle2fWH(x - 16 + 8, y + 16 - 2, 19, 1, SG_TRUE);
     sgDrawSetPolygonSmooth(SG_TRUE);
     sgDrawSetLineSmooth(SG_TRUE);
     sgDrawSetPointSmooth(SG_TRUE);
@@ -192,7 +190,7 @@ void subDrawMode(SGEntity* entity)
     color = smask;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
     x = sub->mode * 32 + 16.0;
-    sgDrawRectangleWH(x - 16.0, y - 16.0, 32.0, 32.0, SG_FALSE);
+    sgDrawRectangle2fWH(x - 16.0, y - 16.0, 32.0, 32.0, SG_FALSE);
     sgDrawSetPolygonSmooth(SG_TRUE);
     sgDrawSetLineSmooth(SG_TRUE);
     sgDrawSetPointSmooth(SG_TRUE);
@@ -203,8 +201,7 @@ void subDrawHealth(SGEntity* entity)
 {
     //Sub* sub = entity->data;
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     sgViewportSet4i(viewport, 0, 0, 640, 480);
 
@@ -217,11 +214,11 @@ void subDrawHealth(SGEntity* entity)
     sgDrawSetPointSmooth(SG_FALSE);
     color = fill;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_TRUE);
+    sgDrawRectangle2fWH(0, 480 - 32 - 16, 32 * 4, 16, SG_TRUE);
 
     color = line;
     sgDrawColor4f(color.r, color.g, color.b, color.a);
-    sgDrawRectangleWH(0, 480 - 32 - 16, 32 * 4, 16, SG_FALSE);
+    sgDrawRectangle2fWH(0, 480 - 32 - 16, 32 * 4, 16, SG_FALSE);
     sgDrawSetPolygonSmooth(SG_TRUE);
     sgDrawSetLineSmooth(SG_TRUE);
     sgDrawSetPointSmooth(SG_TRUE);
@@ -236,8 +233,7 @@ void SG_CALL subCreateBubble(SGEntity* entity, SGVec2 rpos, size_t chance)
 
     Sub* sub = entity->data;
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     pos = sgVec2Add(pos, rpos);
 
@@ -267,8 +263,7 @@ void SG_CALL evSubMouseButtonRightPress(SGEntity* entity)
 {
     SGVec2 mpos = getMousePos();
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     SGAudioSource* srcPing = sgAudioSourceCreate(1.0, 1.0, 1.0, SG_FALSE);
     sgAudioSourceQueueBuffer(srcPing, bufPing);
@@ -356,13 +351,12 @@ void SG_CALL evSubTick(SGEntity* entity)
     sgAudioSourceSetVolume(sub->srcEngine, 0.25 * factor + sgVec2Length(sub->vel) * factor);
     sgAudioSourceSetPitch(sub->srcEngine, 0.25 + sgVec2Length(sub->vel));
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     lightEdges(pos, radii[sub->mode], 1.0/4.0);
 
     pos = sgVec2Add(pos, sub->vel);
-    sgEntitySetPos(entity, pos.x, pos.y);
+    sgEntitySetPos2fv(entity, pos);
 
     float vdamping = 0.95;
 
@@ -381,8 +375,7 @@ void SG_CALL evSubDraw(SGEntity* entity)
 
     Sub* sub = entity->data;
 
-    SGVec2 pos;
-    sgEntityGetPos(entity, &pos.x, &pos.y);
+    SGVec2 pos = sgEntityGetPos2fv(entity);
 
     sgViewportSet4i4f(viewport, 0, 0, 640, 480, pos.x - 640/viewzoom/2, pos.y - 480/viewzoom/2, 640/viewzoom, 480/viewzoom);
 
@@ -425,7 +418,7 @@ void SG_CALL evSubDraw(SGEntity* entity)
         }
     sgDrawEnd();
 
-    /*sgDrawRectangleWH(pos.x - 10.0, pos.y - 4.0, 20.0, 8.0, SG_TRUE);
+    /*sgDrawRectangle2fWH(pos.x - 10.0, pos.y - 4.0, 20.0, 8.0, SG_TRUE);
     sgDrawCircle(pos.x + 10.0, pos.y, 4, SG_TRUE);*/
 
     //sgDrawColor4f(0.0, 0.0, 1.0, 0.5);
@@ -465,7 +458,7 @@ Sub* subCreate(SGVec2 pos)
     sub->entity->evKeyboardKey = evSubKeyboardKey;
     sub->entity->evTick = evSubTick;
     sub->entity->evDraw = evSubDraw;
-    sgEntitySetPos(sub->entity, pos.x, pos.y);
+    sgEntitySetPos2fv(sub->entity, pos);
 
     sub->vel = sgVec2f(0.0, 0.0);
     sub->srcEngine = sgAudioSourceCreate(0.5, 0.0, 1.0, SG_TRUE);

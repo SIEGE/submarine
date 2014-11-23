@@ -385,7 +385,7 @@ void caveDrawTilesDBG(Cave* cave, float xo, float yo, float xs, float ys)
         for(j = 0; j < cave->height; j++)
         {
             if(cave->tiles[cave->next][i][j])
-                sgDrawRectangleWH(xo + i * xs, yo + j * ys, xs, ys, SG_TRUE);
+                sgDrawRectangle2fWH(xo + i * xs, yo + j * ys, xs, ys, SG_TRUE);
             sgDrawColor4f(1.0, 0.0, 0.0, 1.0);
             sgFontPrintAlignedf(font, xo + i * xs + xs / 2, yo + j * ys + ys/2, SG_ALIGN_CENTER, "%lu", (unsigned long)cave->tilesets[i][j]);
             sgDrawColor4f(1.0, 1.0, 1.0, 1.0);

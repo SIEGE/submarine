@@ -125,13 +125,13 @@ void drawEArcRads(float x, float y, float rx, float ry, float a1, float a2, SGbo
     if(fill)
     {
         sgDrawBegin(SG_TRIANGLE_FAN);
-        sgDrawColor4fv(&a.r);
+        sgDrawColorC(a);
         sgDrawVertex2f(x, y);
     }
     else
         sgDrawBegin(SG_LINE_STRIP);
 
-    sgDrawColor4fv(&b.r);
+    sgDrawColorC(b);
     for(i = 0; i <= numsides; i++)
     {
         float a = a1 + i * adiff;
@@ -161,15 +161,15 @@ void drawEArcRads2(float x, float y, float rx1, float ry1, float rx2, float ry2,
     else
         sgDrawBegin(SG_LINE_STRIP);
 
-    sgDrawColor4fv(&bc.r);
+    sgDrawColorC(bc);
     for(i = 0; i <= numsides; i++)
     {
         float a = a1 + i * adiff;
         if(fill)
         {
-            sgDrawColor4fv(&ac.r);
+            sgDrawColorC(ac);
             sgDrawVertex2f(x + cos(a) * rx1, y + sin(a) * ry1);
-            sgDrawColor4fv(&bc.r);
+            sgDrawColorC(bc);
         }
 
         sgDrawVertex2f(x + cos(a) * rx2, y + sin(a) * ry2);
@@ -180,7 +180,7 @@ void drawEArcRads2(float x, float y, float rx1, float ry1, float rx2, float ry2,
     if(!fill)
     {
         sgDrawBegin(SG_LINE_STRIP);
-        sgDrawColor4fv(&ac.r);
+        sgDrawColorC(ac);
         for(i = 0; i <= numsides; i++)
         {
             float a = a1 + i * adiff;
