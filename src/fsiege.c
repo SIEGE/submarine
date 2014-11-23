@@ -81,9 +81,7 @@ size_t sgIntersectCS(SGVec2 c, float r, SGVec2 p1, SGVec2 p2, SGVec2* i1, SGVec2
 
 SGVec2 getMousePos(void)
 {
-    SGint mx, my;
-    sgMouseGetPos(&mx, &my);
-    SGVec2 mpos = sgVec2f(mx, my);
+    SGVec2 mpos = sgMouseGetPos2fv();
 
     mpos.x = viewport->posx + mpos.x * viewport->sizex / viewport->wsizex;
     mpos.y = viewport->posy + mpos.y * viewport->sizey / viewport->wsizey;
